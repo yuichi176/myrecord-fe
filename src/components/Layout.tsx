@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
-import { AppBar, Box, Toolbar, IconButton, Typography, Button } from '@mui/material'
+import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'
-import { signOut, useSession } from 'next-auth/react'
 
 type Props = {
   children?: ReactNode
@@ -10,7 +9,6 @@ type Props = {
 }
 
 const Layout = ({ children, title = 'animemo' }: Props) => {
-  const { data: session } = useSession()
 
   return (
     <div>
@@ -27,11 +25,9 @@ const Layout = ({ children, title = 'animemo' }: Props) => {
               <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
                 myrecord
               </Typography>
-              {session && (
-                <Button color='inherit' onClick={() => signOut()}>
-                  Logout
-                </Button>
-              )}
+              <Button color='inherit'>
+                Logout
+              </Button>
             </Toolbar>
           </AppBar>
         </Box>

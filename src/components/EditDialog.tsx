@@ -2,7 +2,6 @@ import { Button, Dialog, DialogActions, DialogContent, TextField, Rating, Typogr
 import { GridRowParams } from '@mui/x-data-grid'
 import React from 'react'
 import { PostPatchBody } from '@/types/post'
-import { useSession } from 'next-auth/react'
 
 type Props = {
   open: boolean
@@ -12,8 +11,7 @@ type Props = {
 }
 
 const EditDialog = ({ onClose, clickEdit, open, editTargetParams }: Props) => {
-  const { data: session } = useSession()
-  const userEmail = session?.user?.email != null ? session?.user?.email : ''
+  const userEmail = 'ozwald176@gmail.com' // TODO
 
   const [rating, setRating] = React.useState<number | null>(editTargetParams.row.rating)
   const [animeName, setAnimeName] = React.useState<string | null>(editTargetParams.row.animeName)

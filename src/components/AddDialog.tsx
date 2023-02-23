@@ -1,7 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, TextField, Rating, Typography } from '@mui/material'
 import React from 'react'
 import { PostPostBody } from '@/types/post'
-import { useSession } from 'next-auth/react'
 
 type Props = {
   open: boolean
@@ -10,8 +9,7 @@ type Props = {
 }
 
 const AddDialog = ({ onClose, clickAdd, open }: Props) => {
-  const { data: session } = useSession()
-  const userEmail = session?.user?.email != null ? session?.user?.email : ''
+  const userEmail = 'ozwald176@gmail.com' // TODO
 
   const [rating, setRating] = React.useState<number | null>(0)
   const [animeName, setAnimeName] = React.useState<string | null>('')

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Post } from '@/types/post'
 import { getPost } from '@/libs/apiCall/external/post/postClient'
-import { getSession, useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
 import { Container } from '@mui/material'
 import PostTable from '@/components/PostTable'
@@ -21,8 +20,7 @@ const TopPage = ({ data }: Props) => {
 }
 
 export async function getServerSideProps(context: any) {
-  const session = await getSession(context)
-  const userName = session?.user?.email != null ? session?.user?.email : ''
+  const userName = 'ozwald176@gmail.com' // TODO
   const data = await getPost({ userName: userName })
   return { props: { data } }
 }
