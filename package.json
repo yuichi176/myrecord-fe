@@ -1,7 +1,7 @@
 {
-  "name": "animemo-ui",
+  "name": "myrecord-web",
   "version": "1.0.0",
-  "description": "frontend for animemoApp",
+  "description": "web frontend of myrecord",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
