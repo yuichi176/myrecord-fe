@@ -1,30 +1,28 @@
 import { Button, Dialog, DialogActions, DialogContent, TextField, Rating, Typography } from '@mui/material'
 import { GridRowParams } from '@mui/x-data-grid'
 import React from 'react'
-import { PostPatchBody } from '@/types/post'
+import { PostPutBody } from "@/types/post";
 
 type Props = {
   open: boolean
   editTargetParams: GridRowParams
   onClose: () => void
-  clickEdit: (params: GridRowParams, body: PostPatchBody) => void
+  clickEdit: (params: GridRowParams, body: PostPutBody) => void
 }
 
 const EditDialog = ({ onClose, clickEdit, open, editTargetParams }: Props) => {
-  const userEmail = 'ozwald176@gmail.com' // TODO
-
-  const [rating, setRating] = React.useState<number | null>(editTargetParams.row.rating)
-  const [animeName, setAnimeName] = React.useState<string | null>(editTargetParams.row.animeName)
+  const user = 'ozwald176@gmail.com' // TODO
+  const [rating, setRating] = React.useState<number>(editTargetParams.row.rating)
+  const [animeName, setAnimeName] = React.useState<string>(editTargetParams.row.anime_name)
 
   const handleClose = () => {
     onClose()
   }
 
   const handleEdit = () => {
-    const body: PostPatchBody = {
-      id: editTargetParams.row.id,
-      user: userEmail,
-      animeName: animeName,
+    const body: PostPutBody = {
+      user: user,
+      anime_name: animeName,
       rating: rating,
     }
     clickEdit(editTargetParams, body)
@@ -39,8 +37,8 @@ const EditDialog = ({ onClose, clickEdit, open, editTargetParams }: Props) => {
         </Typography>
         <Rating
           value={rating}
-          onChange={(event, newValue: number | null) => {
-            setRating(newValue)
+          onChange={(event, newValue) => {
+            setRating(newValue as number)
           }}
           sx={{ mb: 2 }}
         />

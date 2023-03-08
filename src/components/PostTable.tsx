@@ -7,14 +7,14 @@ import {
   GridActionsCellItem,
   GridRowParams,
 } from '@mui/x-data-grid'
-import { Post, PostPatchBody, PostPatchResponse, PostPostBody, PostPostResponse } from '@/types/post'
+import { Post, PostPostBody, PostPutBody } from "@/types/post";
 import { Rating, Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/DeleteOutlined'
 import AddDialog from '@/components/AddDialog'
 import DeleteDialog from '@/components/DeleteDialog'
-import { deletePost, postPost, patchPost } from '@/libs/apiCall/internal/post/postClient'
+import { deletePost, postPost, putPost } from "@/libs/apiCall/post/postClient";
 import { getToday } from '@/utils'
 import EditDialog from '@/components/EditDialog'
 
@@ -45,20 +45,20 @@ const PostTable = ({ initialRows }: Props) => {
   }
 
   const handlePostPost = async (body: PostPostBody) => {
-    const response: PostPostResponse = await postPost(body)
-    const { id, animeName, rating } = response
+    const response = await postPost(body)
+    const { id, anime_name, rating } = response
     setRows((oldRows: GridRowsProp) => [
-      { id: id, createdAt: getToday(), animeName: animeName, rating: rating },
+      { id: id, created_at: getToday(), anime_name: anime_name, rating: rating },
       ...oldRows,
     ])
   }
 
-  const handleEditPost = async (params: GridRowParams, body: PostPatchBody) => {
-    const response: PostPatchResponse = await patchPost(body)
-    const { animeName, rating } = response
-    const newRow: Post[] = rows.map((row: Post) => {
+  const handleEditPost = async (params: GridRowParams, body: PostPutBody) => {
+    const response = await putPost(params.row.id, body)
+    const { anime_name, rating } = response
+    const newRow = rows.map((row) => {
       if (row.id === params.id) {
-        return { id: row.id, createdAt: row.createdAt, animeName: animeName, rating: rating }
+        return { id: row.id, created_at: row.created_at, anime_name: anime_name, rating: rating }
       } else {
         return row
       }
@@ -80,7 +80,7 @@ const PostTable = ({ initialRows }: Props) => {
   const columns: GridColumns = [
     { field: 'id', type: 'string', hide: true },
     {
-      field: 'createdAt',
+      field: 'created_at',
       type: 'string',
       headerName: '登録日',
       width: 130,
@@ -91,7 +91,7 @@ const PostTable = ({ initialRows }: Props) => {
       minWidth: 100,
     },
     {
-      field: 'animeName',
+      field: 'anime_name',
       type: 'string',
       headerName: 'タイトル',
       width: 190,

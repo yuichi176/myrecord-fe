@@ -1,9 +1,15 @@
 import { FailedCallApiError } from '@/types/errors/FailedCallApiError'
 import lodash from 'lodash'
 
+/**
+ * 共通のhttpクライアント
+ */
 export const httpClient = {
   async get<T = any>(url: string, options?: RequestInit): Promise<T> {
-    return request(url, options)
+    return request(url, {
+      method: 'GET',
+      ...options
+    })
   },
 
   async post<T = any>(url: string, body: object, options?: RequestInit): Promise<T> {
@@ -17,14 +23,6 @@ export const httpClient = {
   async put<T = any>(url: string, body: object, options?: RequestInit): Promise<T> {
     return request(url, {
       method: 'PUT',
-      body: JSON.stringify(body),
-      ...options,
-    })
-  },
-
-  async patch<T = any>(url: string, body: object, options?: RequestInit): Promise<T> {
-    return request(url, {
-      method: 'PATCH',
       body: JSON.stringify(body),
       ...options,
     })
@@ -50,10 +48,6 @@ async function request(url: string, options?: RequestInit): Promise<any> {
   )
   try {
     const response = await fetch(url, mergeOptions)
-
-    if (!response.ok) {
-      throw new FailedCallApiError(response.statusText, response.status)
-    }
     return await response.json().catch(() => null)
   } catch (error) {
     if (error instanceof FailedCallApiError) {

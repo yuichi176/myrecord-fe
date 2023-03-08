@@ -1,11 +1,13 @@
 interface Env {
-  ANIMEMO_API_URL: string
-  GOOGLE_ID: string
-  GOOGLE_SECRET: string
+  BFF_PROTOCOL?: string;
+  BFF_BASE_DOMAIN?: string;
+  BE_PROTOCOL?: string;
+  BE_BASE_DOMAIN?: string;
 }
 
 export const env = {
-  ANIMEMO_API_URL: process.env.ANIMEMO_API_URL,
-  GOOGLE_ID: process.env.GOOGLE_ID,
-  GOOGLE_SECRET: process.env.GOOGLE_SECRET,
+  BFF_PROTOCOL: process.env.BFF_PROTOCOL || 'http',
+  BFF_BASE_DOMAIN: process.env.BFF_BASE_URL || 'localhost:3000',
+  BE_PROTOCOL: process.env.BE_PROTOCOL || 'http',
+  BE_BASE_DOMAIN: process.env.BE_BASE_URL || 'localhost:8080',
 } as Env

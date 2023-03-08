@@ -9,10 +9,10 @@ type Props = {
 }
 
 const AddDialog = ({ onClose, clickAdd, open }: Props) => {
-  const userEmail = 'ozwald176@gmail.com' // TODO
+  const user = 'ozwald176@gmail.com' // TODO
 
-  const [rating, setRating] = React.useState<number | null>(0)
-  const [animeName, setAnimeName] = React.useState<string | null>('')
+  const [rating, setRating] = React.useState<number>(0)
+  const [animeName, setAnimeName] = React.useState<string>('')
 
   const handleClose = () => {
     onClose()
@@ -20,8 +20,8 @@ const AddDialog = ({ onClose, clickAdd, open }: Props) => {
 
   const handleAdd = () => {
     const body: PostPostBody = {
-      user: userEmail,
-      animeName: animeName,
+      user: user,
+      anime_name: animeName,
       rating: rating,
     }
     clickAdd(body)
@@ -36,8 +36,8 @@ const AddDialog = ({ onClose, clickAdd, open }: Props) => {
         </Typography>
         <Rating
           value={rating}
-          onChange={(event, newValue: number | null) => {
-            setRating(newValue)
+          onChange={(event, newValue) => {
+            setRating(newValue as number)
           }}
           sx={{ mb: 2 }}
         />
