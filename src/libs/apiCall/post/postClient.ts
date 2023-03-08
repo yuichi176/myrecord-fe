@@ -18,6 +18,10 @@ export async function getPost(query: PostSearchQuery): Promise<PostGetResponse[]
   return await httpClient.get(`${apiEndpoint}?user=${user}`)
 }
 
+export async function getPostById(id: Post['id']): Promise<Post> {
+  return await httpClient.get(`${apiEndpoint}/${id}`)
+}
+
 export async function postPost(body: PostPostBody): Promise<PostPostResponse> {
   return await httpClient.post(apiEndpoint, body)
 }

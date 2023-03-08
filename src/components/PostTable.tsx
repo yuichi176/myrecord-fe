@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/DeleteOutlined'
 import AddDialog from '@/components/AddDialog'
 import DeleteDialog from '@/components/DeleteDialog'
-import { deletePost, postPost, putPost } from "@/libs/apiCall/post/postClient";
+import { deletePost, getPostById, postPost, putPost } from "@/libs/apiCall/post/postClient";
 import { getToday } from '@/utils'
 import EditDialog from '@/components/EditDialog'
 
@@ -54,8 +54,9 @@ const PostTable = ({ initialRows }: Props) => {
   }
 
   const handleEditPost = async (params: GridRowParams, body: PostPutBody) => {
-    const response = await putPost(params.row.id, body)
-    const { anime_name, rating } = response
+    await putPost(params.row.id, body)
+    const updated = await getPostById(params.row.id)
+    const { anime_name, rating } = updated
     const newRow = rows.map((row) => {
       if (row.id === params.id) {
         return { id: row.id, created_at: row.created_at, anime_name: anime_name, rating: rating }
