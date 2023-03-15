@@ -1,1 +1,1 @@
-# animemo-ui
+# myrecord-fe
