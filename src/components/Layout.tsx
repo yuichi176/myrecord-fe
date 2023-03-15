@@ -2,13 +2,15 @@ import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'
+import { signOut } from "next-auth/react";
 
 type Props = {
   children?: ReactNode
   title?: string
+  user?: string
 }
 
-const Layout = ({ children, title = 'animemo' }: Props) => {
+const Layout = ({ children, title = 'animemo', user }: Props) => {
 
   return (
     <div>
@@ -25,9 +27,15 @@ const Layout = ({ children, title = 'animemo' }: Props) => {
               <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
                 myrecord
               </Typography>
-              <Button color='inherit'>
-                Logout
-              </Button>
+              {user ?
+                <>
+                  <p className='hidden md:inline mr-7 text-sm'>{user}</p>
+                  <Button color='inherit' onClick={() => signOut()}>
+                    Logout
+                  </Button>
+                </>
+                : <></>
+              }
             </Toolbar>
           </AppBar>
         </Box>

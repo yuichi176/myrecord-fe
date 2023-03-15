@@ -1,9 +1,12 @@
 import type { AppProps } from 'next/app'
+import { SessionProvider } from "next-auth/react"
 import '@/style.css'
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps: {session, ...pageProps} }: AppProps) => {
   return (
-    <Component {...pageProps} />
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
   )
 }
 
