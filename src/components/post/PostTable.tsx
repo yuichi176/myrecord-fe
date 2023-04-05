@@ -7,22 +7,24 @@ import {
   GridActionsCellItem,
   GridRowParams,
 } from '@mui/x-data-grid'
-import { Post, PostPostBody, PostPutBody } from "@/types/post";
+import { Post, PostPostBody, PostPutBody } from '@/types/post'
 import { Rating, Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/DeleteOutlined'
-import AddDialog from '@/components/AddDialog'
-import DeleteDialog from '@/components/DeleteDialog'
-import { deletePost, getPostById, postPost, putPost } from "@/libs/apiCall/post/postClient";
+import AddDialog from '@/components/post/AddDialog'
+import DeleteDialog from '@/components/post/DeleteDialog'
+import { deletePost, getPostById, postPost, putPost } from '@/libs/apiCall/post/postClient'
 import { getToday } from '@/utils'
-import EditDialog from '@/components/EditDialog'
+import EditDialog from '@/components/post/EditDialog'
 
 type Props = {
   initialRows: Post[]
+  user: string
+  collection_name: string
 }
 
-const PostTable = ({ initialRows }: Props) => {
+const PostTable = ({ initialRows, user, collection_name }: Props) => {
   const [rows, setRows] = React.useState<Post[]>(initialRows)
   const [openAddDialog, setOpenAddDialog] = React.useState<boolean>(false)
   const [openEditDialog, setOpenEditDialog] = React.useState<boolean>(false)
@@ -151,7 +153,7 @@ const PostTable = ({ initialRows }: Props) => {
   return (
     <div style={{ width: '100%' }}>
       <Button color='primary' startIcon={<AddIcon />} onClick={handleAddClick}>
-        新規
+        新規レコード
       </Button>
       <DataGrid
         sx={{
@@ -163,7 +165,15 @@ const PostTable = ({ initialRows }: Props) => {
         rowsPerPageOptions={[10, 50, 100]}
         autoHeight
       />
-      {openAddDialog && <AddDialog open={openAddDialog} onClose={handleDialogClose} clickAdd={handlePostPost} />}
+      {openAddDialog && (
+        <AddDialog
+          open={openAddDialog}
+          onClose={handleDialogClose}
+          clickAdd={handlePostPost}
+          user={user}
+          collection_name={collection_name}
+        />
+      )}
       {openDeleteDialog && deleteTargetParams !== undefined && (
         <DeleteDialog
           open={openDeleteDialog}
@@ -178,6 +188,7 @@ const PostTable = ({ initialRows }: Props) => {
           onClose={handleDialogClose}
           clickEdit={handleEditPost}
           editTargetParams={editTargetParams}
+          user={user}
         />
       )}
     </div>

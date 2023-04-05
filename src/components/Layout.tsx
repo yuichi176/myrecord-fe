@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
-import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
+import { AppBar, Box, Typography, Button } from '@mui/material'
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'
-import { signOut } from "next-auth/react";
+import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 type Props = {
   children?: ReactNode
@@ -11,7 +12,6 @@ type Props = {
 }
 
 const Layout = ({ children, title = 'animemo', user }: Props) => {
-
   return (
     <div>
       <Head>
@@ -22,21 +22,26 @@ const Layout = ({ children, title = 'animemo', user }: Props) => {
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Box sx={{ flexGrow: 1, mb: 3, flex: 0 }}>
           <AppBar position='static' sx={{ background: '#4682b4' }}>
-            <Toolbar>
-              <AutoStoriesIcon sx={{ mr: 1 }} />
-              <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                myrecord
-              </Typography>
-              {user ?
-                <>
+            <div className='flex items-center justify-between px-[16px] min-h-[56px] lg:px-[24px] lg:min-h-[64px]'>
+              <Link href='/collections'>
+                <div className='flex items-center'>
+                  <AutoStoriesIcon sx={{ mr: 1 }} />
+                  <Typography variant='h6' component='div'>
+                    myrecord
+                  </Typography>
+                </div>
+              </Link>
+              {user ? (
+                <div className=''>
                   <p className='hidden md:inline mr-7 text-sm'>{user}</p>
                   <Button color='inherit' onClick={() => signOut()}>
                     Logout
                   </Button>
-                </>
-                : <></>
-              }
-            </Toolbar>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
           </AppBar>
         </Box>
         <Box sx={{ flex: 1 }}>{children}</Box>

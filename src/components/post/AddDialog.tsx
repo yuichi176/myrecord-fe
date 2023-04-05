@@ -1,31 +1,31 @@
 import { Button, Dialog, DialogActions, DialogContent, TextField, Rating, Typography } from '@mui/material'
-import { GridRowParams } from '@mui/x-data-grid'
 import React from 'react'
-import { PostPutBody } from "@/types/post";
+import { PostPostBody } from '@/types/post'
 
 type Props = {
   open: boolean
-  editTargetParams: GridRowParams
   onClose: () => void
-  clickEdit: (params: GridRowParams, body: PostPutBody) => void
+  clickAdd: (body: PostPostBody) => void
+  user: string
+  collection_name: string
 }
 
-const EditDialog = ({ onClose, clickEdit, open, editTargetParams }: Props) => {
-  const user = 'ozwald176@gmail.com' // TODO
-  const [rating, setRating] = React.useState<number>(editTargetParams.row.rating)
-  const [animeName, setAnimeName] = React.useState<string>(editTargetParams.row.anime_name)
+const AddDialog = ({ onClose, clickAdd, open, user, collection_name }: Props) => {
+  const [rating, setRating] = React.useState<number>(0)
+  const [animeName, setAnimeName] = React.useState<string>('')
 
   const handleClose = () => {
     onClose()
   }
 
-  const handleEdit = () => {
-    const body: PostPutBody = {
+  const handleAdd = () => {
+    const body: PostPostBody = {
       user: user,
       anime_name: animeName,
       rating: rating,
+      collection_name: collection_name,
     }
-    clickEdit(editTargetParams, body)
+    clickAdd(body)
     onClose()
   }
 
@@ -53,10 +53,10 @@ const EditDialog = ({ onClose, clickEdit, open, editTargetParams }: Props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>戻る</Button>
-        <Button onClick={handleEdit}>更新</Button>
+        <Button onClick={handleAdd}>登録</Button>
       </DialogActions>
     </Dialog>
   )
 }
 
-export default EditDialog
+export default AddDialog

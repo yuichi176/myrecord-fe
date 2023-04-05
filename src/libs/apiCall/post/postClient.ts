@@ -2,10 +2,12 @@ import {
   Post,
   PostGetResponse,
   PostPostBody,
-  PostPostResponse, PostPutBody, PostPutResponse,
-  PostSearchQuery
-} from "@/types/post";
-import { env } from "@/config/env";
+  PostPostResponse,
+  PostPutBody,
+  PostPutResponse,
+  PostSearchQuery,
+} from '@/types/post'
+import { env } from '@/config/env'
 import { httpClient } from '@/libs/apiCall/httpClient'
 
 /**
@@ -14,8 +16,8 @@ import { httpClient } from '@/libs/apiCall/httpClient'
 const apiEndpoint = `${env.BFF_PROTOCOL}://${env.BFF_BASE_DOMAIN}/api/post`
 
 export async function getPost(query: PostSearchQuery): Promise<PostGetResponse[]> {
-  const { user } = query
-  return await httpClient.get(`${apiEndpoint}?user=${user}`)
+  const { user, collection_name } = query
+  return await httpClient.get(`${apiEndpoint}?user=${user}&collection_name=${collection_name}`)
 }
 
 export async function getPostById(id: Post['id']): Promise<Post> {
