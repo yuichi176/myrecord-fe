@@ -1,14 +1,15 @@
 import { isObject } from '@/utils'
 
 export type Post = {
-  id: string;
-  anime_name: string;
-  rating: number;
-  user?: string;
-  delete_flag?: 1 | 0;
-  created_at: string;
-  updated_at?: string;
-  deleted_at?: string;
+  id: string
+  anime_name: string
+  rating: number
+  user?: string
+  collection_name?: string
+  delete_flag?: 1 | 0
+  created_at: string
+  updated_at?: string
+  deleted_at?: string
 }
 
 export type Posts = {
@@ -17,12 +18,14 @@ export type Posts = {
 
 export type PostSearchQuery = {
   user: String
+  collection_name: string
 }
 
 export type PostPostBody = {
   user: string
   anime_name?: string
   rating?: number
+  collection_name: string
 }
 
 export type PostPutBody = {
@@ -57,8 +60,8 @@ export const isPostSearchQuery = (query: unknown): query is PostSearchQuery => {
   if (!isObject<PostSearchQuery>(query)) {
     return false
   }
-  const { user } = query
-  if (user == null) {
+  const { user, collection_name } = query
+  if (user == null || collection_name == null) {
     return false
   }
   return true
@@ -74,7 +77,9 @@ export const isPostPostBody = (postPostBody: unknown): postPostBody is PostPostB
     'anime_name' in postPostBody &&
     typeof postPostBody.anime_name === 'string' &&
     'rating' in postPostBody &&
-    typeof postPostBody.rating === 'number'
+    typeof postPostBody.rating === 'number' &&
+    'collection_name' in postPostBody &&
+    typeof postPostBody.collection_name === 'string'
   ) {
     return true
   }

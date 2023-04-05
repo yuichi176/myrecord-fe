@@ -1,12 +1,8 @@
 import { FailedCallApiError } from '@/types/errors/FailedCallApiError'
-import {
-  isPostPostBody,
-  isPostSearchQuery,
-  PostPostBody, PostPostResponse,
-} from "@/types/post";
+import { isPostPostBody, isPostSearchQuery, PostPostBody, PostPostResponse } from '@/types/post'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { env } from "@/config/env";
-import { httpClient } from "@/libs/apiCall/httpClient";
+import { env } from '@/config/env'
+import { httpClient } from '@/libs/apiCall/httpClient'
 
 export default async function postHandler(req: NextApiRequest, res: NextApiResponse) {
   const apiEndpoint = `${env.BE_PROTOCOL}://${env.BE_BASE_DOMAIN}/posts`
@@ -17,8 +13,8 @@ export default async function postHandler(req: NextApiRequest, res: NextApiRespo
         if (!isPostSearchQuery(req.query)) {
           res.status(400).send('invalid post search query')
         } else {
-          const { user } = req.query
-          const posts = await httpClient.get(`${apiEndpoint}?user=${user}`)
+          const { user, collection_name } = req.query
+          const posts = await httpClient.get(`${apiEndpoint}?user=${user}&collection_name=${collection_name}`)
           res.status(200).send(posts)
         }
       } catch (error) {
