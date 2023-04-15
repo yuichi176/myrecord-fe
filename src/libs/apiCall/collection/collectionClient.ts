@@ -9,6 +9,7 @@ import { CollectionPostBody, CollectionSearchQuery } from '@/types/collection/fo
 const apiEndpoint = `${env.BFF_PROTOCOL}://${env.BFF_BASE_DOMAIN}/api/collection`
 
 export async function getCollection(query: CollectionSearchQuery): Promise<Collection[]> {
+  console.log(apiEndpoint)
   const { user } = query
   return await httpClient.get(`${apiEndpoint}?user=${user}`)
 }

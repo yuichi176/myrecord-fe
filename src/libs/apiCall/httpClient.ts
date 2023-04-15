@@ -8,7 +8,7 @@ export const httpClient = {
   async get<T = any>(url: string, options?: RequestInit): Promise<T> {
     return request(url, {
       method: 'GET',
-      ...options
+      ...options,
     })
   },
 
@@ -53,6 +53,6 @@ async function request(url: string, options?: RequestInit): Promise<any> {
     if (error instanceof FailedCallApiError) {
       throw new FailedCallApiError(error.message, error.statusCode)
     }
-    throw new FailedCallApiError(`Failed call animemo-api: ${error}`, (error as any).statusCode || 500)
+    throw new FailedCallApiError(`Failed call myrecord-api: ${error}`, (error as any).statusCode || 500)
   }
 }
