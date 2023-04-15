@@ -17,7 +17,7 @@ steps:
     entrypoint: gcloud
     args: ['run', 'deploy', 'myrecord-web', '--image', 'gcr.io/myrecord-376903/myrecord-web-application', '--region', 'asia-northeast1']
 substitutions:
-  _BFF_PROTOCOL: https # default value
+  _BFF_PROTOCOL: https
   _BFF_BASE_DOMAIN: myrecord-web-tyqu5egcpq-an.a.run.app
   _BE_PROTOCOL: https
   _BE_BASE_DOMAIN: myrecord-rest-api-tyqu5egcpq-an.a.run.app

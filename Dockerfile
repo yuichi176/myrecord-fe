@@ -17,10 +17,10 @@ RUN \
 FROM base AS builder
 WORKDIR /app
 
-ARG bff_protocol
-ARG bff_base_domain
-ARG be_protocol
-ARG be_base_domain
+ARG bff_protocol=https
+ARG bff_base_domain=myrecord-web-tyqu5egcpq-an.a.run.app
+ARG be_protocol=https
+ARG be_base_domain=myrecord-rest-api-tyqu5egcpq-an.a.run.app
 
 ENV NEXT_PUBLIC_BFF_PROTOCOL=$bff_protocol
 ENV NEXT_PUBLIC_BFF_BASE_DOMAIN=$bff_base_domain
@@ -30,7 +30,6 @@ ENV NEXT_PUBLIC_BE_BASE_DOMAIN=$be_base_domain
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN echo "bff_protocol:${bff_protocol}"
 RUN npm run build
 
 # Production image, copy all the files and run next
