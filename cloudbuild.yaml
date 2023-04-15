@@ -3,10 +3,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
-      '--build-arg', 'bff_protocol=${_BFF_PROTOCOL}',
-      '--build-arg', 'bff_base_domain=${_BFF_BASE_DOMAIN}',
-      '--build-arg', 'be_protocol=${_BE_PROTOCOL}',
-      '--build-arg', 'be_base_domain=${_BE_BASE_DOMAIN}',
+      '--build-arg=bff_protocol=${_BFF_PROTOCOL}',
+      '--build-arg=bff_base_domain=${_BFF_BASE_DOMAIN}',
+      '--build-arg=be_protocol=${_BE_PROTOCOL}',
+      '--build-arg=be_base_domain=${_BE_BASE_DOMAIN}',
       '-t', 'gcr.io/myrecord-376903/myrecord-web-application', '.'
     ]
   # Push the container image to Container Registry
