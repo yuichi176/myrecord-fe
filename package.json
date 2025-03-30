@@ -1,7 +1,6 @@
 {
   "name": "myrecord-web",
   "version": "1.0.0",
-  "description": "web frontend of myrecord",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,21 +15,7 @@
     "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "src/**/*.{js,jsx,ts,tsx,json}": "prettier --write"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Yuichi617/animemo-ui.git"
-  },
-  "keywords": [
-    "typescript",
-    "react",
-    "next"
-  ],
   "author": "Yuichi Sugiyama",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Yuichi617/animemo-ui/issues"
-  },
-  "homepage": "https://github.com/Yuichi617/animemo-ui#readme",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
